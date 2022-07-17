@@ -1,5 +1,5 @@
 const fs = require('fs/promises')
-const contactsPath = require("./path");
+const contactsPath = require("../models/path");
 
 const readContent = async () => {
   const content = await fs.readFile(contactsPath,'utf8')

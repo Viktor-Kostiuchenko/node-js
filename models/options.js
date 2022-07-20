@@ -33,16 +33,24 @@ const addContact = async ({ name, email, phone }) => {
   return newContact;
 };
 
-const updateContact = async (id, { name, email, phone }) => {
+const updateContact = async (id, objForUpdate) => {
   const contacts = await readContent();
 
-  const idx = contacts.findIndex(item => item.id === id);
-    if(idx === -1){
-        return null;
-    } 
-    contacts[idx] = {id, name, email, phone};
-    updateContent(contactsPath, contacts);
-    return contacts[idx];
+  const idx = contacts.findIndex((item) => item.id === id);
+  if (idx === -1) {
+    return null;
+  }
+  const updatedContact = {};
+
+  for (const key in objForUpdate) {
+    if (key) {
+      updatedContact[key] = objForUpdate[key];
+    }
+  }
+
+  contacts[idx] = { ...contacts[idx], ...updatedContact };
+  updateContent(contactsPath, contacts);
+  return contacts[idx];
 };
 
 module.exports = {
@@ -50,5 +58,5 @@ module.exports = {
   getContact,
   removeContact,
   addContact,
-  updateContact
+  updateContact,
 };

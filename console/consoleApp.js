@@ -2,9 +2,9 @@ const { program } = require('commander');
 const {
   listContacts,
   addContact,
-  getContactById,
-  removeContactById,
-} = require('./contacts/options');
+  getContact,
+  removeContact,
+} = require('../models/options');
 
 program
   .option('-a, --action <type>', 'choose action')
@@ -16,40 +16,43 @@ program
 program.parse(process.argv);
 const options = program.opts();
 
-async function invokeAction({ action, id, name, email, phone }) {
+const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
-    case 'list':
+    case 'list': {
       const contacts = await listContacts();
       console.table(contacts);
       break;
+    }
 
-    case 'get':
-      const contactById = await getContactById(id);
+    case 'get': {
+      const contactById = await getContact(id);
       if (!contactById) {
         throw new Error(`Contact with id=${id} not found`);
       }
       console.log(contactById);
       break;
+    }
 
-    case 'add':
+    case 'add': {
       const addedContact = await addContact(name, email, phone);
       console.log(addedContact);
       break;
+    }
 
-    case 'remove':
-      const removedContact = await removeContactById(id);
+    case 'remove': {
+      const removedContact = await removeContact(id);
       if (!removedContact) {
         throw new Error(`Contact with id=${id} not found to be removed`);
       }
       console.log(removedContact);
       break;
+    }
 
     default:
       console.warn('\x1B[31m Unknown action type!');
   }
-}
+};
 
 (async () => {
   await invokeAction(options);
 })();
-

@@ -1,49 +1,29 @@
 const options = require('../models/options');
 
 const listContacts = async () => {
-  try {
-    const data = await options.listContacts();
-    return data;
-  } catch (err) {
-    console.log(err.message);
-  }
+  return await options.listContacts();
 };
 
 const getContact = async (id) => {
-  try {
-    const data = await options.getContact(id);
-    return data;
-  } catch (err) {
-    console.log(err.message);
-  }
+  return await options.getContact(id);
 };
 
 const removeContact = async (id) => {
-  try {
-    const data = await options.removeContact(id); 
-    return data;
-  } catch (err) {
-    console.log(err.message);
-  }
+  return await options.removeContact(id);
 };
 
 const addContact = async (body) => {
-  try {
-    const data = await options.addContact(body);
-    return data;
-  } catch (err) {
-    console.log(err.message);
-  }
+  return await options.addContact(body);
 };
 
 const updateContact = async (id, body) => {
-  try {
-    const data = await options.updateContact(id, body);
-    return data;
-  } catch (err) {
-    console.log(err.message);
-  }
+  return await options.updateContact(id, body);
 };
 
-
-module.exports = {listContacts, getContact, removeContact, addContact, updateContact};
+module.exports = {
+  listContacts,
+  getContact,
+  removeContact,
+  addContact,
+  updateContact,
+};

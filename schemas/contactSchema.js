@@ -19,4 +19,4 @@ const updateContact = Joi.object({
     .messages({ 'string.pattern.base': `Phone number must have only digits.` }),
 }).or('name', 'email', 'phone');
 
-module.exports = {addContact, updateContact};
+module.exports = { addContact, updateContact };

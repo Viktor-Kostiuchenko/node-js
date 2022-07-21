@@ -1,13 +1,14 @@
 const express = require('express');
-const controller = require('../../controllers/contactsController')
+const { basedir } = global;
+const ctrl = require(`${basedir}/controllers`);
+const { tryCatchHandler } = require(`${basedir}/utils`);
 
 const router = express.Router();
 
-router.get('/', controller.listContacts);
-router.get('/:contactId', controller.getContact);
-router.post('/', controller.addContact)
-router.delete('/:contactId', controller.deleteContact) 
-router.put('/:contactId', controller.updateContact) 
-
+router.get('/', tryCatchHandler(ctrl.listContacts));
+router.get('/:contactId', tryCatchHandler(ctrl.getContact));
+router.post('/', tryCatchHandler(ctrl.addContact));
+router.delete('/:contactId', tryCatchHandler(ctrl.deleteContact));
+router.put('/:contactId', tryCatchHandler(ctrl.updateContact));
 
 module.exports = router;
